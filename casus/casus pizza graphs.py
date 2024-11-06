@@ -1,41 +1,30 @@
 import pandas as pd 
-from pathlib import Path
-from matplotlib import pyplot as plt
 from matplotlib import style
+from search_by_name import fileHandler
+from Diagram_components import Bar_diagram
+from Diagram_components import Circel_diagram
+from Diagram_components import Line_diagram
 
-#leest CSV file.
-path = Path.cwd()
-d = pd.read_csv(str(path) + "GlobalLandTemperaturesByCountry.csv")
-d.columns
+filename =  'Data_Model_Pizza_Sales.xlsx'
+filePath = fileHandler.find_file(filename)
+df = pd.read_excel(filePath)
 
 #Line graph
-style.use()
-x = [1,1,1]
-y= [2,2,2]
-x2= [3,3,3]
-y2 = [4,4,4]
+style.use('ggplot')
+x = [1, 2, 3]
+y = [2, 4, 6]
 
-plt.plot(x,y)
-fig = plt.figure()
-plt.title("")
-plt.xlabel("X as")
-plt.ylabel("y as")
-plt.show
+Line_diagram.Line_diagram.Createline(x,y)
 
 #Bar graph
-a = ["","",""]
+a = ["Categorie 1", "Categorie 2", "Categorie 3"]
 b = [22, 33, 44]
-plt.bar(a, b, color = "white")
-plt.title()
-plt.xlabel()
-plt.ylabel()
-plt.show()
+
+Bar_diagram.Bar_diagram.Createbar(a,b)
 
 #Circle graph
-a = ""
-b = []
-explode = ()
-fig1, a1 = plt.subplots()
-a1.pie(b, explode = explode, labels = a, autopct = "%2.2%%", shadow = True, startangle = 100)
-a1.ais("equal") #Zorgt voor een cirkel.
-plt.show()
+labels = ["Categorie 1", "Categorie 2", "Categorie 3"]
+sizes = [25, 35, 40]
+explode = (0, 0.1, 0) 
+
+Circel_diagram.Circel_diagram.CreateCirle(labels,sizes,explode)
