@@ -26,11 +26,7 @@ def line():
 def bar():
     data =  Database.GetBarDiagramData()
 
-    
-    total = [item["total"] for item in data]
-    quantity = [item["sum"] for item in data]
-
-    Bar_diagram.Bar_diagram.Createbar(total,quantity)
+    Bar_diagram.Bar_diagram.Createbar(data)
 
 #Circle graph
 def circle():

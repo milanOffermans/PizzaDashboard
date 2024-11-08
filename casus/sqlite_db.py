@@ -1,16 +1,16 @@
 import sqlite3
 import pandas as pd
 from search_by_name import fileHandler
+pathlocation = "C:/temp/database.db"
 class Database:
-    
     def Create_Database(filename):
-        filePath = "C:/Users/juria_rfq14t7/Documents/Data Model - Pizza Sales.xlsx"
+        filePath = "C:/tempData_Model_Pizza_Sales.xlsx"
         PizzaList = []
         df = pd.read_excel(filePath)
         df.columns = df.columns.str.strip()
 
         # Haalt extra white spaces enz weg waardoor je een cleaner resultaat krijgt bij een query.    
-        connection = sqlite3.connect("C:/Users/juria_rfq14t7/Documents/database.db")
+        connection = sqlite3.connect(pathlocation)
         cursor = connection.cursor()
         
         #Hier maar ik eerst een connectie met de database. Indien er geen bestaat word eentje gemaakt met de opgegeven naam in mijn geval database.db.
@@ -65,7 +65,7 @@ class Database:
         #Het is niet nodig maar wel goed om altijd de database weer te sluiten zodra je klaar bent met je acties dus leer je dit gewoon aan.
 
     def GetLineDiagramData():
-        connection = sqlite3.connect('C:/Users/juria_rfq14t7/Documents/database.db')
+        connection = sqlite3.connect(pathlocation)
         cursor = connection.cursor()
         Pizzalist = []
 
@@ -86,7 +86,7 @@ class Database:
         finally:
             connection.close()
     def GetCircleDiagramData():
-        connection = sqlite3.connect('C:/Users/juria_rfq14t7/Documents/database.db')
+        connection = sqlite3.connect(pathlocation)
         cursor = connection.cursor()
         Pizzalist = []
 
@@ -108,29 +108,19 @@ class Database:
         finally:
             connection.close()
     def GetBarDiagramData():
-        connection = sqlite3.connect('C:/Users/juria_rfq14t7/Documents/database.db')
-        cursor = connection.cursor()
-        Pizzalist = []
+        connection = sqlite3.connect(pathlocation)
         
         try:
-        
-            cursor.execute('''
-            Select pizza_category, pizza_name, sum(quantity) from Pizza_Database group by pizza_category, pizza_name
-            ''')
-        
-            for row in cursor.fetchall():
-                pizzadict = {
-                                'total': row[1],
-                                'sum': row[2]}
-                Pizzalist.append(pizzadict)
+            query = "Select pizza_category, pizza_name, sum(quantity) from Pizza_Database group by pizza_category, pizza_name"
+            df = pd.read_sql_query(query, connection)
 
-            return Pizzalist
+            return df
         except Exception as e:
              print(f"error : {str(e)}") 
         finally:
             connection.close()
     def GetWireframeDiagramData():
-        connection = sqlite3.connect('C:/Users/juria_rfq14t7/Documents/database.db')
+        connection = sqlite3.connect(pathlocation)
         cursor = connection.cursor()
         Pizzalist = []
 
