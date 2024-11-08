@@ -5,3 +5,5 @@ class fileHandler:
         for file_path in search_dir.rglob(filename):
             return file_path
         return None
+
+print(fileHandler.find_file("Data Model - Pizza Sales.xlsx"))

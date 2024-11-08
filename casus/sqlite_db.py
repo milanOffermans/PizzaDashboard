@@ -1,16 +1,16 @@
 import sqlite3
 import pandas as pd
+from search_by_name import fileHandler
 class Database:
     
     def Create_Database(filename):
-        filePath = 'c:\\temp\\Data_Model_Pizza_Sales.xlsx'
+        filePath = "C:/Users/juria_rfq14t7/Documents/Data Model - Pizza Sales.xlsx"
         PizzaList = []
-
         df = pd.read_excel(filePath)
         df.columns = df.columns.str.strip()
 
         # Haalt extra white spaces enz weg waardoor je een cleaner resultaat krijgt bij een query.    
-        connection = sqlite3.connect('C:/temp/database.db')
+        connection = sqlite3.connect("C:/Users/juria_rfq14t7/Documents/database.db")
         cursor = connection.cursor()
         
         #Hier maar ik eerst een connectie met de database. Indien er geen bestaat word eentje gemaakt met de opgegeven naam in mijn geval database.db.
@@ -59,13 +59,13 @@ class Database:
             #Dan print ik weer de cursor.fetchone() en omdat ik de cursor(muis) naar die regel heb gebracht print die dus niet meer de eeste regel maar de regel die ik wil.
             #Heb ik niet specifiek gezegd waar de cursor heen moet in die table print die dus de eerste row. 
         except:
-            print(f"connection faild: {connection.Error}")
+            print(f"connection failed: {connection.Error}")
         finally:
             connection.close()
         #Het is niet nodig maar wel goed om altijd de database weer te sluiten zodra je klaar bent met je acties dus leer je dit gewoon aan.
 
     def GetLineDiagramData():
-        connection = sqlite3.connect('C:/temp/database.db')
+        connection = sqlite3.connect('C:/Users/juria_rfq14t7/Documents/database.db')
         cursor = connection.cursor()
         Pizzalist = []
 
@@ -86,7 +86,7 @@ class Database:
         finally:
             connection.close()
     def GetCircleDiagramData():
-        connection = sqlite3.connect('C:/temp/database.db')
+        connection = sqlite3.connect('C:/Users/juria_rfq14t7/Documents/database.db')
         cursor = connection.cursor()
         Pizzalist = []
 
@@ -108,10 +108,10 @@ class Database:
         finally:
             connection.close()
     def GetBarDiagramData():
-        connection = sqlite3.connect('C:/temp/database.db')
+        connection = sqlite3.connect('C:/Users/juria_rfq14t7/Documents/database.db')
         cursor = connection.cursor()
         Pizzalist = []
-
+        
         try:
         
             cursor.execute('''
@@ -119,9 +119,9 @@ class Database:
             ''')
         
             for row in cursor.fetchall():
-                pizzadict = {   'category': row[0],
+                pizzadict = {
                                 'total': row[1],
-                                'sum': row[3]}
+                                'sum': row[2]}
                 Pizzalist.append(pizzadict)
 
             return Pizzalist
@@ -130,7 +130,7 @@ class Database:
         finally:
             connection.close()
     def GetWireframeDiagramData():
-        connection = sqlite3.connect('C:/temp/database.db')
+        connection = sqlite3.connect('C:/Users/juria_rfq14t7/Documents/database.db')
         cursor = connection.cursor()
         Pizzalist = []
 
@@ -151,3 +151,4 @@ class Database:
              print(f"error : {str(e)}") 
         finally:
             connection.close()
+

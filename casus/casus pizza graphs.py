@@ -10,7 +10,7 @@ from tkinter import *
 from tkinter import ttk
 import numpy as np
 
-filename =  'Data_Model_Pizza_Sales.xlsx'
+#filename =  'Data_Model_Pizza_Sales.xlsx'
 #filePath = 'c:\\temp\\Data_Model_Pizza_Sales.xlsx'
 #df = pd.read_excel(filePath)
 style.use('ggplot')
@@ -27,11 +27,10 @@ def bar():
     data =  Database.GetBarDiagramData()
 
     
-    categories = [item["category"] for item in data]
     total = [item["total"] for item in data]
-    quantity = [item["quantity"] for item in data]
+    quantity = [item["sum"] for item in data]
 
-    Bar_diagram.Bar_diagram.Createbar(categories,total,quantity)
+    Bar_diagram.Bar_diagram.Createbar(total,quantity)
 
 #Circle graph
 def circle():
@@ -57,14 +56,16 @@ def wireframe():
     Wireframe_diagram.Wireframe_diagram.CreateWireFrame(x,y,z)    
 
 root = Tk()
-frm = ttk.Frame(root, padding=10)
+root.title('Pizza Dashboard')
+frm = ttk.Frame(root, padding=5)
+root.geometry('300x100')
 frm.grid()
-ttk.Label(frm, text="Welkom to my pizza dashboard").grid(column=0, row=0)
-ttk.Button(frm, text="Quit", command=root.destroy).grid(column=20, row=0)
-ttk.Button(frm, text="line diagram", command=line).grid(column=0, row=5)
-ttk.Button(frm, text="bar diagram", command=bar).grid(column=1, row=5)
-ttk.Button(frm, text="circel", command=circle).grid(column=0, row=8)
-ttk.Button(frm, text="wireframe", command=wireframe).grid(column=1, row=8)
+ttk.Label(frm, text="Welcome!").grid(column=0, row=0)
+ttk.Button(frm, text="Quit", command=root.destroy).grid(column=0, row=10)
+ttk.Button(frm, text="Line diagram", command=line).grid(column=0, row=5)
+ttk.Button(frm, text="Bar diagram", command=bar).grid(column=1, row=5)
+ttk.Button(frm, text="Circel", command=circle).grid(column=0, row=8)
+ttk.Button(frm, text="Wireframe", command=wireframe).grid(column=1, row=8)
 root.mainloop()
 
 #Line graph
