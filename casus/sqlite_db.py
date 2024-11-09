@@ -34,7 +34,6 @@ class Database:
         
             for row in cursor.fetchall():
                 PizzaList.append(row[0], row[1])
-                print(f'Category: {row[0]}, Total sum: {row[1]}')
 
             return PizzaList
             #cursor.execute('SELECT * FROM Pizza_Database')
@@ -119,7 +118,7 @@ class Database:
              print(f"error : {str(e)}") 
         finally:
             connection.close()
-    def GetWireframeDiagramData():
+    def GetScatterboxDiagramData():
         connection = sqlite3.connect(pathlocation)
         cursor = connection.cursor()
         Pizzalist = []
@@ -127,7 +126,7 @@ class Database:
         try:
         
             cursor.execute('''
-            Select order_date, pizza_name, pizza_size, sum(quantity) from Pizza_Database group by order_date, pizza_name, pizza_size
+            Select order_date, pizza_name, pizza_size, sum(quantity) from Pizza_Database group by order_date, pizza_name, pizza_size LIMIT 0,90
             ''')
         
             for row in cursor.fetchall():
